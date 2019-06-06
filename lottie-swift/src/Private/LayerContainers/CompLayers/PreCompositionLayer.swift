@@ -91,6 +91,7 @@ class PreCompositionLayer: CompositionLayer {
     } else {
       localFrame = (frame - startFrame) / timeStretch
     }
+    
     animationLayers.forEach( { $0.displayWithFrame(frame: localFrame, forceUpdates: forceUpdates) })
   }
   

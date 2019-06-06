@@ -609,7 +609,7 @@ final public class AnimationView: LottieView {
       position.y = bounds.maxY - animation.bounds.midY
       xform = CATransform3DIdentity
     @unknown default:
-      print("unsupported contentMode: \(contentMode.rawValue); please update lottie-ios")
+      //print("unsupported contentMode: \(contentMode.rawValue); please update lottie-ios")
       xform = CATransform3DIdentity
     }
     animationLayer.position = position

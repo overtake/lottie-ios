@@ -14,7 +14,7 @@ import QuartzCore
  This layer holds a single composition container and allows for animation of
  the currentFrame property.
  */
-class AnimationContainer: CALayer {
+public class AnimationContainer: CALayer {
   
   /// The animatable Current Frame Property
   @NSManaged var currentFrame: CGFloat
@@ -83,7 +83,7 @@ class AnimationContainer: CALayer {
   var animationLayers: [CompositionLayer]
   fileprivate let layerImageProvider: LayerImageProvider
   
-  init(animation: Animation, imageProvider: AnimationImageProvider) {
+  public init(animation: Animation, imageProvider: AnimationImageProvider) {
     self.layerImageProvider = LayerImageProvider(imageProvider: imageProvider, assets: animation.assetLibrary?.imageAssets)
     self.animationLayers = []
     super.init()
@@ -131,6 +131,11 @@ class AnimationContainer: CALayer {
     currentFrame = animationLayer.currentFrame
     
   }
+    
+    deinit {
+        var bp:Int = 0
+        bp += 1
+    }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -162,6 +167,28 @@ class AnimationContainer: CALayer {
     }
     animationLayers.forEach( { $0.displayWithFrame(frame: newFrame, forceUpdates: false) })
   }
+    
+    public func renderFrame(_ frame: Int32, in context: CGContext) {
+        currentFrame = CGFloat(frame)
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        display()
+        CATransaction.commit()
+        render(in: context)
+    }
+    
+    /*
+     - (void)renderFrame:(int32_t)frame inContext:(CGContextRef)context {
+     [CATransaction begin];
+     [CATransaction setDisableActions:YES];
+     ((LOTCompositionContainer *)_layer).currentFrame = @(frame);
+     [_layer setNeedsDisplay];
+     [CATransaction commit];
+     
+     [_layer renderInContext:context];
+     }
+
+ */
   
 }
 
