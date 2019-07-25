@@ -116,7 +116,6 @@ public class AnimationContainer: CALayer {
     
     layerImageProvider.addImageLayers(imageLayers)
     layerImageProvider.reloadImages()
-    setNeedsDisplay()
   }
   
   /// For CAAnimation Use
@@ -173,8 +172,8 @@ public class AnimationContainer: CALayer {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         display()
-        CATransaction.commit()
         render(in: context)
+        CATransaction.commit()
     }
     
     /*
